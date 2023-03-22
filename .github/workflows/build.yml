@@ -27,7 +27,7 @@ jobs:
               status: "in_progress",
               details_url: process.env.BUILD_URL
             });
-            return id;
+            return 12121;
       - name: Update Check
         uses: actions/github-script@v6
         if: ${{ always() }}
