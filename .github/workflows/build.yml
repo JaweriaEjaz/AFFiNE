@@ -35,6 +35,16 @@ jobs:
               status: "in_progress",
               details_url: process.env.BUILD_URL
             });
+            await github.rest.checks.setSuitesPreferences({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              auto_trigger_checks: [
+                {
+                  app_id: response.data.app.id,
+                  setting: true,
+                },
+              ],
+            });
             return response.data.id;
       - name: Update Check
         uses: actions/github-script@v6
