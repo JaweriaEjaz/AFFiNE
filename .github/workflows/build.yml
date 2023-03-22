@@ -35,15 +35,21 @@ jobs:
               status: "in_progress",
               details_url: process.env.BUILD_URL
             });
-            await github.rest.checks.setSuitesPreferences({
+            const { data: suite } = await github.rest.checks.createSuite({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              auto_trigger_checks: [
-                {
-                  app_id: response.data.app.id,
-                  setting: true,
-                },
-              ],
+              head_sha: pull_request.head.sha,
+            });
+
+            await github.rest.checks.setSuitesPreferences({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                auto_trigger_checks: [
+                    {
+                    app_id: suite.app.id,
+                    setting: true,
+                    },
+                ],
             });
             return response.data.id;
       - name: Update Check
