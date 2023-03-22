@@ -19,12 +19,15 @@ jobs:
           debug: ${{ secrets.ACTIONS_STEP_DEBUG || false }}
           result-encoding: string
           script: |
-            console.log(github);
-            console.log(context);
+            const { data: pull_request } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
             const response = await github.rest.checks.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              head_sha: "???",
+              head_sha: pull_request.head.sha,
               name: "E2E Test ${{ matrix.shard }}/${{ strategy.job-total }}",
               status: "in_progress",
               details_url: process.env.BUILD_URL
