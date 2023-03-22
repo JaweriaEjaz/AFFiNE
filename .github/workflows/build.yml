@@ -11,7 +11,7 @@ jobs:
   build:
     name: Build on Pull Request
     runs-on: ubuntu-latest
-    if: github.repository == 'toeverything/AFFiNE' && github.event.issue.pull_request && startsWith(github.event.comment.body, '/test run')
+    if: github.repository == 'himself65/AFFiNE' && github.event.issue.pull_request && startsWith(github.event.comment.body, '/test run')
     environment: development
 
     steps:
