@@ -19,7 +19,7 @@ jobs:
           debug: ${{ secrets.ACTIONS_STEP_DEBUG || false }}
           result-encoding: string
           script: |
-            const { id } = await github.rest.checks.create({
+            const response = await github.rest.checks.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               head_sha: context.sha,
@@ -27,7 +27,7 @@ jobs:
               status: "in_progress",
               details_url: process.env.BUILD_URL
             });
-            return 12121;
+            return response.data.id;
       - name: Update Check
         uses: actions/github-script@v6
         if: ${{ always() }}
