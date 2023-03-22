@@ -19,6 +19,8 @@ jobs:
           debug: ${{ secrets.ACTIONS_STEP_DEBUG || false }}
           result-encoding: string
           script: |
+            console.log(github);
+            console.log(context);
             const response = await github.rest.checks.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
