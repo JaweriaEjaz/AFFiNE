@@ -7,6 +7,9 @@ on:
 env:
   BUILD_URL: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
 
+permissions:
+  checks: write
+
 jobs:
   check:
     runs-on: ubuntu-latest
